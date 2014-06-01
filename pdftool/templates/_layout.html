@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% from tornado.options import options %}
+{% from pdftool.menu import menu %}
+<html>
+  <head>
+    <title>PDFTool</title>
+    <meta charset="utf-8">
+
+    <link href="{{ static_url('style.css') }}" rel="stylesheet" type="text/css">
+    <!-- <link href="{{ static_url('dropzone.css') }}" rel="stylesheet" type="text/css"> -->
+  </head>
+  <body {% if options.debug %}data-debug="true"{% end %}>
+    <h1>PDFTool</h1>
+    <nav>
+      <ul>
+        {% for key, item in menu.items() %}
+        <li>
+          <a href="{{ reverse_url(key) }}">{{ item }}</a>
+        </li>
+        {% end %}
+      </ul>
+    </nav>
+    <main>
+      {% block main %}{% end %}
+    </main>
+    <script src="{{ static_url('main.min.js') }}"></script>
+    <!-- <script src="{{ static_url('dropzone.min.js') }}"></script> -->
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{% extends _layout.html %}
+
+{% block main %}
+
+<form method="POST" action="{{ reverse_url('Merge') }}" enctype="multipart/form-data" class="dropzone">
+  <input type="file" name="pdfs" multiple/>
+  <input type="submit" value="Fusionner les pdfs" id="submit-all"/>
+</form>
+
+{% end %}
