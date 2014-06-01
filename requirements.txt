@@ -1,0 +1,1 @@
+git@github.com:mstamy2/PyPDF2.git
