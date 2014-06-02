@@ -4,10 +4,14 @@
 
 <form method="POST" action="{{ reverse_url('RotatePDFs') }}" enctype="multipart/form-data" class="dropzone">
   <input type="file" name="pdf"/>
-  <input type="radio" name="way" value="clockwise">clockwise</input>
-  <input type="radio" name="way" value="counter-clockwise">counter-clockwise</input>
+  <input type="radio" name="way" value="clockwise"><i class="fa fa-repeat"></i> clockwise</input>
+  <input type="radio" name="way" value="counter-clockwise"><i class="fa fa-undo"></i> counter-clockwise</input>
   <input type="text" name="only-pages" value="" placeholder="Only pages 0-10" />
-  <input type="text" name="degrees" value="" placeholder="degrees" />
+  <select name="degrees">
+    <option value="90">90°</option>
+    <option value="180">180°</option>
+    <option value="270">270°</option>
+  </select>
   <input type="submit" value="Rotate the pdf" id="submit-all"/>
 </form>
 
