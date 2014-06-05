@@ -5,6 +5,7 @@ import os
 
 log = logging.getLogger('pdftool')
 
+
 class url(object):
     def __init__(self, url):
         self.url = url
@@ -15,6 +16,7 @@ class url(object):
             (tornado.web.url(self.url, cls, name=cls.__name__),)
         )
         return cls
+
 
 class Route(tornado.web.RequestHandler):
     @property

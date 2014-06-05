@@ -6,9 +6,8 @@
     <title>PDFTool</title>
     <meta charset="utf-8">
 
-    <link href="{{ static_url('style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ static_url('css/pdftool.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ static_url('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-    <!-- <link href="{{ static_url('dropzone.css') }}" rel="stylesheet" type="text/css"> -->
   </head>
   <body {% if options.debug %}data-debug="true"{% end %}>
     <h1>PDFTool</h1>
@@ -24,7 +23,7 @@
     <main>
       {% block main %}{% end %}
     </main>
-    <script src="{{ static_url('main.min.js') }}"></script>
-    <!-- <script src="{{ static_url('dropzone.min.js') }}"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ static_url('js/pdftool.js') }}"></script>
   </body>
 </html>

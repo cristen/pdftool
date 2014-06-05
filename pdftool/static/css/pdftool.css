@@ -1,0 +1,18 @@
+#files {
+  border: 3px dashed black;
+  height: 100px;
+  width: 640px;
+  z-index: 1;
+}
+
+#drop {
+  color: grey;
+  font-size: 22pt;
+  pointer-events: none;
+  text-align: center;
+  z-index: -1;
+}
+
+#url {
+  display: none;
+}
