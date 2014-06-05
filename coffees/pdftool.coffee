@@ -11,7 +11,8 @@ $(document).ready ->
       evt.preventDefault()
       files = evt.dataTransfer.files
       files_array.push(files)
-      $('#files').append '<p>' + files[0].name + '</p>'
+      $('#drop').hide()
+      $('#files').append '<p class="pdf_thumbnail">' + files[0].name + '</p>'
       output = []
 
     handleDragOver = (evt) ->
@@ -32,6 +33,8 @@ $(document).ready ->
         processData: false
         contentType: false
         data: data
+        beforeSend: () ->
+          $('#loading').show()
         success: (data, textStatus, errors) ->
           byteCharacters = atob(data)
           byteNumbers = new Array(byteCharacters.length)
@@ -42,6 +45,7 @@ $(document).ready ->
           url = window.URL.createObjectURL(blob)
           $("#url").attr 'href', url
           $("#url").show()
+          $('#loading').hide()
   else
     alert('Your browser is outdated. Please consider upgrading to a newer one.')
 

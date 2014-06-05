@@ -15,7 +15,8 @@ $(document).ready(function() {
       evt.preventDefault();
       files = evt.dataTransfer.files;
       files_array.push(files);
-      $('#files').append('<p>' + files[0].name + '</p>');
+      $('#drop').hide();
+      $('#files').append('<p class="pdf_thumbnail">' + files[0].name + '</p>');
       return output = [];
     };
     handleDragOver = function(evt) {
@@ -39,6 +40,9 @@ $(document).ready(function() {
         processData: false,
         contentType: false,
         data: data,
+        beforeSend: function() {
+          return $('#loading').show();
+        },
         success: function(data, textStatus, errors) {
           var blob, byteArray, byteCharacters, byteNumbers, url, _j, _len1;
           byteCharacters = atob(data);
@@ -53,7 +57,8 @@ $(document).ready(function() {
           });
           url = window.URL.createObjectURL(blob);
           $("#url").attr('href', url);
-          return $("#url").show();
+          $("#url").show();
+          return $('#loading').hide();
         }
       });
     };

@@ -6,11 +6,9 @@
   <p id="drop">Drop your files here</p>
 </div>
 
+<img id="loading" src="{{ static_url('images/ajax-loader.gif') }}" alt="loading"/>
+
 <a id="url" href="#">Download the result !</a>
-<!-- <form method="POST" action="{{ reverse_url('Merge') }}" enctype="multipart/form-data" class="dropzone"> -->
-<!--   <input type="file" name="pdfs[]" id="files" multiple/> -->
-<!--   <input type="submit" value="Merge the pdfs" id="submit-all"/> -->
-<!-- </form> -->
-<input type="button" value="Drop the sauce"  id="upload-button" data-url="{{ reverse_url('Merge') }}"/>
+<input type="button" value="Merge the pdfs !"  id="upload-button" data-url="{{ reverse_url('Merge') }}"/>
 
 {% end %}

@@ -16,3 +16,20 @@
 #url {
   display: none;
 }
+
+.pdf_thumbnail {
+  border: 1px dotted black;
+  float: left;
+  height: 80px;
+  margin: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80px;
+}
+
+#loading {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
