@@ -24,6 +24,7 @@
       {% block main %}{% end %}
     </main>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="{{ static_url('js/pdftool.min.js') }}"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="{% if options.debug%}{{ static_url('js/pdftool.js') }}{% else %}{{ static_url('js/pdftool.min.js') }}{% end %}"></script>
   </body>
 </html>

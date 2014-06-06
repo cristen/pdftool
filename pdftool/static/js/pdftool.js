@@ -15,8 +15,21 @@ $(document).ready(function() {
       evt.preventDefault();
       files = evt.dataTransfer.files;
       files_array.push(files);
-      $('#drop').hide();
-      $('#files').append('<p class="pdf_thumbnail">' + files[0].name + '</p>');
+      $('#drop').remove();
+      $('#files ul').append('<li class="pdf_thumbnail">' + files[0].name + '</li>');
+      $('#sortable').sortable({
+        placeholder: 'ui-sortable-placeholder',
+        start: function(e, ui) {
+          return $(this).attr('data-previndex', ui.item.index());
+        },
+        update: function(e, ui) {
+          var newIndex, oldIndex, _ref;
+          newIndex = ui.item.index();
+          oldIndex = $(this).attr('data-previndex');
+          _ref = [files_array[newIndex], files_array[oldIndex]], files_array[oldIndex] = _ref[0], files_array[newIndex] = _ref[1];
+          return $(this).removeAttr('data-previndex');
+        }
+      });
       return output = [];
     };
     handleDragOver = function(evt) {
@@ -41,6 +54,7 @@ $(document).ready(function() {
         contentType: false,
         data: data,
         beforeSend: function() {
+          $('#url').hide();
           return $('#loading').show();
         },
         success: function(data, textStatus, errors) {

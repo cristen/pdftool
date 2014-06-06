@@ -11,8 +11,19 @@ $(document).ready ->
       evt.preventDefault()
       files = evt.dataTransfer.files
       files_array.push(files)
-      $('#drop').hide()
-      $('#files').append '<p class="pdf_thumbnail">' + files[0].name + '</p>'
+      $('#drop').remove()
+      $('#files ul').append '<li class="pdf_thumbnail">' +
+        files[0].name + '</li>'
+      $('#sortable').sortable
+        placeholder: 'ui-sortable-placeholder'
+        start: (e, ui) ->
+          $(@).attr 'data-previndex', ui.item.index()
+        update: (e, ui) ->
+          newIndex = ui.item.index()
+          oldIndex = $(@).attr 'data-previndex'
+          [files_array[oldIndex], files_array[newIndex]] = [
+            files_array[newIndex], files_array[oldIndex]]
+          $(@).removeAttr 'data-previndex'
       output = []
 
     handleDragOver = (evt) ->
@@ -34,6 +45,7 @@ $(document).ready ->
         contentType: false
         data: data
         beforeSend: () ->
+          $('#url').hide()
           $('#loading').show()
         success: (data, textStatus, errors) ->
           byteCharacters = atob(data)
