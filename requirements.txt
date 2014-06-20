@@ -1,1 +1,4 @@
 git+git://github.com/mstamy2/PyPDF2.git
+tornado
+git+git://github.com/Kozea/ghostscript.git
+pillow

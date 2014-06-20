@@ -25,6 +25,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   width: 80px;
+  position: relative;
 }
 
 #loading {
@@ -32,4 +33,21 @@
   position: fixed;
   top: 50%;
   left: 50%;
+}
+
+li i.fa-minus-square, li i.fa-repeat, li i.fa-undo {
+  position: absolute;
+  top: 0;
+}
+
+li i.fa-minus-square {
+  right: 0
+}
+
+li i.fa-repeat {
+  left: 20px;
+}
+
+li i.fa-undo {
+  left: 0;
 }
