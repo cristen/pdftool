@@ -1,8 +1,6 @@
 var files_array, pages_array;
 
-console.log('Starting app');
-
-jQuery.event.props.push('dataTransfer');
+$.event.props.push('dataTransfer');
 
 files_array = [];
 

@@ -1,6 +1,4 @@
-console.log 'Starting app'
-
-jQuery.event.props.push 'dataTransfer'
+$.event.props.push 'dataTransfer'
 files_array = []
 pages_array = []
 
@@ -57,11 +55,6 @@ $(document).ready ->
         start: (e, ui) ->
           $(@).attr 'data-previndex', ui.item.index()
         update: (e, ui) ->
-          # newIndex = ui.item.index()
-          # oldIndex = $(@).attr 'data-previndex'
-          # [files_array[oldIndex], files_array[newIndex]] = [
-          #   files_array[newIndex], files_array[oldIndex]]
-          # $(@).removeAttr 'data-previndex'
           updatePagesPosition()
 
       data = new FormData()
