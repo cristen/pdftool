@@ -57,34 +57,35 @@ $(document).ready ->
         update: (e, ui) ->
           updatePagesPosition()
 
-      data = new FormData()
-      data.append('file', files[0])
-      filename = files[0].name
-      $.ajax
-        url: $("#upload-button").data 'preview-url'
-        type: 'POST'
-        cache: false
-        processData: false
-        contentType: false
-        data: data
-        success: (data, textStatus, errors) ->
-          for index, bytes of data
-            byteCharacters = atob(bytes)
-            byteNumbers = new Array(byteCharacters.length)
-            for el, i in byteNumbers
-              byteNumbers[i] = byteCharacters.charCodeAt(i)
-            byteArray = new Uint8Array(byteNumbers)
-            blob = new Blob([byteArray], {type: 'application/pdf'})
-            url = window.URL.createObjectURL(blob)
-            $('#files ul').append "<li class='pdf_thumbnail'
-              data-filename='#{filename}' data-pagenum='#{index}'>" +
-              "<img src='#{url}' />" +
-              '<i class="fa fa-minus-square"></i>' +
-              '<i class="fa fa-undo"></i>' +
-              '<i class="fa fa-repeat"></i>' +
-              '</li>'
-          updatePagesPosition()
-      files_array.push(files)
+      $.each files, (index, value) ->
+        data = new FormData()
+        data.append('file', files[index])
+        filename = files[index].name
+        $.ajax
+          url: $("#upload-button").data 'preview-url'
+          type: 'POST'
+          cache: false
+          processData: false
+          contentType: false
+          data: data
+          success: (data, textStatus, errors) ->
+            for index, bytes of data
+              byteCharacters = atob(bytes)
+              byteNumbers = new Array(byteCharacters.length)
+              for el, i in byteNumbers
+                byteNumbers[i] = byteCharacters.charCodeAt(i)
+              byteArray = new Uint8Array(byteNumbers)
+              blob = new Blob([byteArray], {type: 'application/pdf'})
+              url = window.URL.createObjectURL(blob)
+              $('#files ul').append "<li class='pdf_thumbnail'
+                data-filename='#{filename}' data-pagenum='#{index}'>" +
+                "<img src='#{url}' />" +
+                '<i class="fa fa-minus-square"></i>' +
+                '<i class="fa fa-undo"></i>' +
+                '<i class="fa fa-repeat"></i>' +
+                '</li>'
+            updatePagesPosition()
+        files_array.push(files[index])
 
 
     handleDragOver = (evt) ->
@@ -97,7 +98,7 @@ $(document).ready ->
       evt.preventDefault()
       data = new FormData()
       for el, i in files_array
-        data.append('files[]', el[0])
+        data.append('files[]', el)
       for el, i in pages_array
         data.append("pages[#{i}]['filename']", el.filename)
         data.append("pages[#{i}]['pagenum']", el.page)

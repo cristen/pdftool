@@ -61,7 +61,7 @@ $(document).ready(function() {
       });
     };
     handleFileSelect = function(evt) {
-      var data, filename, files;
+      var files;
       evt.stopPropagation();
       evt.preventDefault();
       files = evt.dataTransfer.files;
@@ -75,37 +75,40 @@ $(document).ready(function() {
           return updatePagesPosition();
         }
       });
-      data = new FormData();
-      data.append('file', files[0]);
-      filename = files[0].name;
-      $.ajax({
-        url: $("#upload-button").data('preview-url'),
-        type: 'POST',
-        cache: false,
-        processData: false,
-        contentType: false,
-        data: data,
-        success: function(data, textStatus, errors) {
-          var blob, byteArray, byteCharacters, byteNumbers, bytes, el, i, index, url, _i, _len;
-          for (index in data) {
-            bytes = data[index];
-            byteCharacters = atob(bytes);
-            byteNumbers = new Array(byteCharacters.length);
-            for (i = _i = 0, _len = byteNumbers.length; _i < _len; i = ++_i) {
-              el = byteNumbers[i];
-              byteNumbers[i] = byteCharacters.charCodeAt(i);
+      return $.each(files, function(index, value) {
+        var data, filename;
+        data = new FormData();
+        data.append('file', files[index]);
+        filename = files[index].name;
+        $.ajax({
+          url: $("#upload-button").data('preview-url'),
+          type: 'POST',
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data,
+          success: function(data, textStatus, errors) {
+            var blob, byteArray, byteCharacters, byteNumbers, bytes, el, i, url, _i, _len;
+            for (index in data) {
+              bytes = data[index];
+              byteCharacters = atob(bytes);
+              byteNumbers = new Array(byteCharacters.length);
+              for (i = _i = 0, _len = byteNumbers.length; _i < _len; i = ++_i) {
+                el = byteNumbers[i];
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+              }
+              byteArray = new Uint8Array(byteNumbers);
+              blob = new Blob([byteArray], {
+                type: 'application/pdf'
+              });
+              url = window.URL.createObjectURL(blob);
+              $('#files ul').append(("<li class='pdf_thumbnail' data-filename='" + filename + "' data-pagenum='" + index + "'>") + ("<img src='" + url + "' />") + '<i class="fa fa-minus-square"></i>' + '<i class="fa fa-undo"></i>' + '<i class="fa fa-repeat"></i>' + '</li>');
             }
-            byteArray = new Uint8Array(byteNumbers);
-            blob = new Blob([byteArray], {
-              type: 'application/pdf'
-            });
-            url = window.URL.createObjectURL(blob);
-            $('#files ul').append(("<li class='pdf_thumbnail' data-filename='" + filename + "' data-pagenum='" + index + "'>") + ("<img src='" + url + "' />") + '<i class="fa fa-minus-square"></i>' + '<i class="fa fa-undo"></i>' + '<i class="fa fa-repeat"></i>' + '</li>');
+            return updatePagesPosition();
           }
-          return updatePagesPosition();
-        }
+        });
+        return files_array.push(files[index]);
       });
-      return files_array.push(files);
     };
     handleDragOver = function(evt) {
       evt.stopPropagation();
@@ -119,7 +122,7 @@ $(document).ready(function() {
       data = new FormData();
       for (i = _i = 0, _len = files_array.length; _i < _len; i = ++_i) {
         el = files_array[i];
-        data.append('files[]', el[0]);
+        data.append('files[]', el);
       }
       for (i = _j = 0, _len1 = pages_array.length; _j < _len1; i = ++_j) {
         el = pages_array[i];
