@@ -5,6 +5,9 @@ pages_array = []
 $(document).ready ->
   if window.File and window.FileReader and window.FileList and window.Blob
 
+    backwardUpload = (e) ->
+      $('#hidden-uploader').click()
+
     handleRemove = () ->
       $("#sortable").on 'click', ".fa-minus-square", () ->
         if confirm("Are you sure ?")
@@ -47,7 +50,7 @@ $(document).ready ->
     handleFileSelect = (evt) ->
       evt.stopPropagation()
       evt.preventDefault()
-      files = evt.dataTransfer.files
+      files = evt.dataTransfer?.files or @.files
       $('#drop').remove()
 
       $('#sortable').sortable
@@ -129,6 +132,8 @@ $(document).ready ->
 
   $('#files').bind 'dragover', handleDragOver
   $('#files').bind 'drop', handleFileSelect
+  $('#files').bind 'click', backwardUpload
   $('#upload-button').bind 'click', startUpload
+  $('#hidden-uploader').bind 'change', handleFileSelect
   handleRemove()
   handleRotation()

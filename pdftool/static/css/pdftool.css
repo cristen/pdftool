@@ -51,3 +51,7 @@ li i.fa-repeat {
 li i.fa-undo {
   left: 0;
 }
+
+#hidden-uploader {
+  display: none;
+}

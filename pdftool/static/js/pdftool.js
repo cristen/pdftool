@@ -7,8 +7,11 @@ files_array = [];
 pages_array = [];
 
 $(document).ready(function() {
-  var handleDragOver, handleFileSelect, handleRemove, handleRotation, startUpload, updatePagesPosition;
+  var backwardUpload, handleDragOver, handleFileSelect, handleRemove, handleRotation, startUpload, updatePagesPosition;
   if (window.File && window.FileReader && window.FileList && window.Blob) {
+    backwardUpload = function(e) {
+      return $('#hidden-uploader').click();
+    };
     handleRemove = function() {
       return $("#sortable").on('click', ".fa-minus-square", function() {
         if (confirm("Are you sure ?")) {
@@ -61,10 +64,10 @@ $(document).ready(function() {
       });
     };
     handleFileSelect = function(evt) {
-      var files;
+      var files, _ref;
       evt.stopPropagation();
       evt.preventDefault();
-      files = evt.dataTransfer.files;
+      files = ((_ref = evt.dataTransfer) != null ? _ref.files : void 0) || this.files;
       $('#drop').remove();
       $('#sortable').sortable({
         placeholder: 'ui-sortable-placeholder',
@@ -165,7 +168,9 @@ $(document).ready(function() {
   }
   $('#files').bind('dragover', handleDragOver);
   $('#files').bind('drop', handleFileSelect);
+  $('#files').bind('click', backwardUpload);
   $('#upload-button').bind('click', startUpload);
+  $('#hidden-uploader').bind('change', handleFileSelect);
   handleRemove();
   return handleRotation();
 });
