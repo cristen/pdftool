@@ -8,6 +8,16 @@ $(document).ready ->
     backwardUpload = (e) ->
       $('#hidden-uploader').click()
 
+    handleImgClick = (e) ->
+      src = $(e.target).attr 'src'
+      img = e.target.cloneNode(true)
+      img = $(img).removeClass('thumbnail')
+      $(e.target).magnificPopup
+        items:
+          src: "<div class='centered'>#{img.outerHTML}</div>"
+          type: 'inline'
+        closeBtnInside: true
+
     handleRemove = () ->
       $("#sortable").on 'click', ".fa-minus-square", () ->
         if confirm("Are you sure ?")
@@ -82,7 +92,7 @@ $(document).ready ->
               url = window.URL.createObjectURL(blob)
               $('#files ul').append "<li class='pdf_thumbnail'
                 data-filename='#{filename}' data-pagenum='#{index}'>" +
-                "<img src='#{url}' />" +
+                "<img src='#{url}' class='thumbnail'/>" +
                 '<i class="fa fa-minus-square"></i>' +
                 '<i class="fa fa-undo"></i>' +
                 '<i class="fa fa-repeat"></i>' +
@@ -135,5 +145,9 @@ $(document).ready ->
   $('#files').bind 'click', backwardUpload
   $('#upload-button').bind 'click', startUpload
   $('#hidden-uploader').bind 'change', handleFileSelect
+  $('#files').on 'click', '*', (e) ->
+    e.stopPropagation()
+  $('#files').on 'click mouseenter', '.thumbnail', handleImgClick
+
   handleRemove()
   handleRotation()

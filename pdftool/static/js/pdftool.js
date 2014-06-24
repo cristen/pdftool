@@ -7,10 +7,23 @@ files_array = [];
 pages_array = [];
 
 $(document).ready(function() {
-  var backwardUpload, handleDragOver, handleFileSelect, handleRemove, handleRotation, startUpload, updatePagesPosition;
+  var backwardUpload, handleDragOver, handleFileSelect, handleImgClick, handleRemove, handleRotation, startUpload, updatePagesPosition;
   if (window.File && window.FileReader && window.FileList && window.Blob) {
     backwardUpload = function(e) {
       return $('#hidden-uploader').click();
+    };
+    handleImgClick = function(e) {
+      var img, src;
+      src = $(e.target).attr('src');
+      img = e.target.cloneNode(true);
+      img = $(img).removeClass('thumbnail');
+      return $(e.target).magnificPopup({
+        items: {
+          src: "<div class='centered'>" + img.outerHTML + "</div>",
+          type: 'inline'
+        },
+        closeBtnInside: true
+      });
     };
     handleRemove = function() {
       return $("#sortable").on('click', ".fa-minus-square", function() {
@@ -105,7 +118,7 @@ $(document).ready(function() {
                 type: 'application/pdf'
               });
               url = window.URL.createObjectURL(blob);
-              $('#files ul').append(("<li class='pdf_thumbnail' data-filename='" + filename + "' data-pagenum='" + index + "'>") + ("<img src='" + url + "' />") + '<i class="fa fa-minus-square"></i>' + '<i class="fa fa-undo"></i>' + '<i class="fa fa-repeat"></i>' + '</li>');
+              $('#files ul').append(("<li class='pdf_thumbnail' data-filename='" + filename + "' data-pagenum='" + index + "'>") + ("<img src='" + url + "' class='thumbnail'/>") + '<i class="fa fa-minus-square"></i>' + '<i class="fa fa-undo"></i>' + '<i class="fa fa-repeat"></i>' + '</li>');
             }
             return updatePagesPosition();
           }
@@ -171,6 +184,10 @@ $(document).ready(function() {
   $('#files').bind('click', backwardUpload);
   $('#upload-button').bind('click', startUpload);
   $('#hidden-uploader').bind('change', handleFileSelect);
+  $('#files').on('click', '*', function(e) {
+    return e.stopPropagation();
+  });
+  $('#files').on('click mouseenter', '.thumbnail', handleImgClick);
   handleRemove();
   return handleRotation();
 });

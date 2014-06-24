@@ -56,3 +56,12 @@ li i.fa-undo {
 #hidden-uploader {
   display: none;
 }
+
+.centered {
+  margin: 0 auto;
+  width: 0px;
+}
+
+.thumbnail {
+  width: 50px;
+}
