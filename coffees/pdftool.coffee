@@ -11,7 +11,7 @@ $(document).ready ->
     handleImgClick = (e) ->
       src = $(e.target).attr 'src'
       img = e.target.cloneNode(true)
-      img = $(img).removeClass('thumbnail')
+      img = $(img).removeClass('thumbnail')[0]
       $(e.target).magnificPopup
         items:
           src: "<div class='centered'>#{img.outerHTML}</div>"
