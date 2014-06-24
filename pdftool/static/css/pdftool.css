@@ -8,6 +8,7 @@
 #drop {
   color: grey;
   font-size: 22pt;
+  list-style-type: none;
   pointer-events: none;
   text-align: center;
   z-index: -1;
