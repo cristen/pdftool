@@ -103,6 +103,16 @@ $(document).ready(function() {
           processData: false,
           contentType: false,
           data: data,
+          xhrFields: {
+            onprogress: function(e) {
+              if (e.lengthComputable) {
+                return $('#completion').progressbar({
+                  value: e.loaded / e.total * 100,
+                  change: $('#progress-label').text("" + (e.loaded / e.total * 100) + " %")
+                });
+              }
+            }
+          },
           success: function(data, textStatus, errors) {
             var blob, byteArray, byteCharacters, byteNumbers, bytes, el, i, url, _i, _len;
             for (index in data) {

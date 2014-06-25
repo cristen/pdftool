@@ -81,6 +81,13 @@ $(document).ready ->
           processData: false
           contentType: false
           data: data
+          xhrFields:
+            onprogress: (e) ->
+              if e.lengthComputable
+                $('#completion').progressbar
+                  value: (e.loaded / e.total * 100)
+                  change: $('#progress-label')
+                    .text("#{e.loaded / e.total * 100} %")
           success: (data, textStatus, errors) ->
             for index, bytes of data
               byteCharacters = atob(bytes)
