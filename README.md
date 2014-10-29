@@ -2,8 +2,7 @@
 
 ## description
 
-The main aim of this project is to provide a parser that will search for translatable strings and
-generate xliff files for the given locales.
+This project provides a web tool to work with pdf files (you can rotate or merge pdfs).
 
 ## Usage
 
