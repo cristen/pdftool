@@ -58,7 +58,7 @@ class Preview(Route):
             tmp = BytesIO()
             writer.write(tmp)
             tmp.seek(0)
-            image = pdf2png(tmp, (200, 200))
+            image = pdf2png(tmp, (300, 300))
             image.seek(0)
             output[i] = b64encode(image.read()).decode('utf-8')
         self.set_header("Content-Type", "application/json")

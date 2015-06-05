@@ -7,8 +7,24 @@ files_array = [];
 pages_array = [];
 
 $(document).ready(function() {
-  var handleDragOver, handleFileSelect, handleRemove, handleRotation, startUpload, updatePagesPosition;
+  var backwardUpload, handleDragOver, handleFileSelect, handleImgClick, handleRemove, handleRotation, startUpload, updatePagesPosition;
   if (window.File && window.FileReader && window.FileList && window.Blob) {
+    backwardUpload = function(e) {
+      return $('#hidden-uploader').click();
+    };
+    handleImgClick = function(e) {
+      var img, src;
+      src = $(e.target).attr('src');
+      img = e.target.cloneNode(true);
+      img = $(img).removeClass('thumbnail')[0];
+      return $(e.target).magnificPopup({
+        items: {
+          src: "<div class='centered'>" + img.outerHTML + "</div>",
+          type: 'inline'
+        },
+        closeBtnInside: true
+      });
+    };
     handleRemove = function() {
       return $("#sortable").on('click', ".fa-minus-square", function() {
         if (confirm("Are you sure ?")) {
@@ -61,10 +77,10 @@ $(document).ready(function() {
       });
     };
     handleFileSelect = function(evt) {
-      var data, filename, files;
+      var files, _ref;
       evt.stopPropagation();
       evt.preventDefault();
-      files = evt.dataTransfer.files;
+      files = ((_ref = evt.dataTransfer) != null ? _ref.files : void 0) || this.files;
       $('#drop').remove();
       $('#sortable').sortable({
         placeholder: 'ui-sortable-placeholder',
@@ -75,37 +91,50 @@ $(document).ready(function() {
           return updatePagesPosition();
         }
       });
-      data = new FormData();
-      data.append('file', files[0]);
-      filename = files[0].name;
-      $.ajax({
-        url: $("#upload-button").data('preview-url'),
-        type: 'POST',
-        cache: false,
-        processData: false,
-        contentType: false,
-        data: data,
-        success: function(data, textStatus, errors) {
-          var blob, byteArray, byteCharacters, byteNumbers, bytes, el, i, index, url, _i, _len;
-          for (index in data) {
-            bytes = data[index];
-            byteCharacters = atob(bytes);
-            byteNumbers = new Array(byteCharacters.length);
-            for (i = _i = 0, _len = byteNumbers.length; _i < _len; i = ++_i) {
-              el = byteNumbers[i];
-              byteNumbers[i] = byteCharacters.charCodeAt(i);
+      return $.each(files, function(index, value) {
+        var data, filename;
+        data = new FormData();
+        data.append('file', files[index]);
+        filename = files[index].name;
+        $.ajax({
+          url: $("#upload-button").data('preview-url'),
+          type: 'POST',
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data,
+          xhrFields: {
+            onprogress: function(e) {
+              if (e.lengthComputable) {
+                return $('#completion').progressbar({
+                  value: e.loaded / e.total * 100,
+                  change: $('#progress-label').text("" + (e.loaded / e.total * 100) + " %")
+                });
+              }
             }
-            byteArray = new Uint8Array(byteNumbers);
-            blob = new Blob([byteArray], {
-              type: 'application/pdf'
-            });
-            url = window.URL.createObjectURL(blob);
-            $('#files ul').append(("<li class='pdf_thumbnail' data-filename='" + filename + "' data-pagenum='" + index + "'>") + ("<img src='" + url + "' />") + '<i class="fa fa-minus-square"></i>' + '<i class="fa fa-undo"></i>' + '<i class="fa fa-repeat"></i>' + '</li>');
+          },
+          success: function(data, textStatus, errors) {
+            var blob, byteArray, byteCharacters, byteNumbers, bytes, el, i, url, _i, _len;
+            for (index in data) {
+              bytes = data[index];
+              byteCharacters = atob(bytes);
+              byteNumbers = new Array(byteCharacters.length);
+              for (i = _i = 0, _len = byteNumbers.length; _i < _len; i = ++_i) {
+                el = byteNumbers[i];
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+              }
+              byteArray = new Uint8Array(byteNumbers);
+              blob = new Blob([byteArray], {
+                type: 'application/pdf'
+              });
+              url = window.URL.createObjectURL(blob);
+              $('#files ul').append(("<li class='pdf_thumbnail' data-filename='" + filename + "' data-pagenum='" + index + "'>") + ("<img src='" + url + "' class='thumbnail'/>") + '<i class="fa fa-minus-square"></i>' + '<i class="fa fa-undo"></i>' + '<i class="fa fa-repeat"></i>' + '</li>');
+            }
+            return updatePagesPosition();
           }
-          return updatePagesPosition();
-        }
+        });
+        return files_array.push(files[index]);
       });
-      return files_array.push(files);
     };
     handleDragOver = function(evt) {
       evt.stopPropagation();
@@ -119,7 +148,7 @@ $(document).ready(function() {
       data = new FormData();
       for (i = _i = 0, _len = files_array.length; _i < _len; i = ++_i) {
         el = files_array[i];
-        data.append('files[]', el[0]);
+        data.append('files[]', el);
       }
       for (i = _j = 0, _len1 = pages_array.length; _j < _len1; i = ++_j) {
         el = pages_array[i];
@@ -162,7 +191,13 @@ $(document).ready(function() {
   }
   $('#files').bind('dragover', handleDragOver);
   $('#files').bind('drop', handleFileSelect);
+  $('#files').bind('click', backwardUpload);
   $('#upload-button').bind('click', startUpload);
+  $('#hidden-uploader').bind('change', handleFileSelect);
+  $('#files').on('click', '*', function(e) {
+    return e.stopPropagation();
+  });
+  $('#files').on('click mouseenter', '.thumbnail', handleImgClick);
   handleRemove();
   return handleRotation();
 });

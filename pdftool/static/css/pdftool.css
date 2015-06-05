@@ -78,3 +78,27 @@ li i.fa-repeat {
 li i.fa-undo {
     left: 0;
 }
+
+#hidden-uploader {
+  display: none;
+}
+
+.centered {
+  margin: 0 auto;
+  width: 0px;
+}
+
+.thumbnail {
+  width: 50px;
+}
+
+#completion {
+  position: relative;
+}
+
+#progress-label {
+  margin: 0 auto;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+}

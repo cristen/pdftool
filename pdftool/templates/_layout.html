@@ -7,6 +7,8 @@
     <link href="http://fonts.googleapis.com/css?family=Luckiest+Guy|Roboto" rel='stylesheet' type='text/css'>
     <link href="{{ static_url('css/pdftool.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ static_url('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ static_url('css/magnific-popup.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ static_url('css/jquery-ui.css') }}" rel="stylesheet" type="text/css">
   </head>
   <body {% if options.debug %}data-debug="true"{% end %}>
     <h1>PDFTool</h1>
@@ -15,6 +17,7 @@
     </main>
     <script src="{{ static_url('js/jquery.min.js') }}"></script>
     <script src="{{ static_url('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ static_url('js/magnific-popup.min.js') }}"></script>
     <script src="{% if options.debug%}{{ static_url('js/pdftool.js') }}{% else %}{{ static_url('js/pdftool.min.js') }}{% end %}"></script>
   </body>
 </html>

@@ -2,6 +2,7 @@
 
 {% block main %}
 
+<input type="file" name="files" id="hidden-uploader" multiple="multiple"/>
 <div id="files">
   <ul id="sortable">
     <li id="drop">Drop your files here</li>
@@ -12,5 +13,7 @@
 
 <a id="url" href="#">Download the result !</a>
 <input type="button" value="Work the magic !"  id="upload-button" data-url="{{ reverse_url('Merge') }}" data-preview-url="{{ reverse_url('Preview') }}"/>
+
+<div id="completion"><div id="progress-label"></div></div>
 
 {% end %}
