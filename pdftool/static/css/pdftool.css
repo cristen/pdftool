@@ -1,53 +1,80 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Luckiest Guy', cursive;
+}
+
+h1 {
+    font-size: 40pt;
+}
+
+body {
+    font-family: 'Roboto', serif;
+}
+
 #files {
-  border: 3px dashed black;
-  height: 100px;
-  width: 640px;
-  z-index: 1;
+    border: 2px dotted #aaa;
+    z-index: 1;
 }
 
 #drop {
-  color: grey;
-  font-size: 22pt;
-  pointer-events: none;
-  text-align: center;
-  z-index: -1;
+    color: grey;
+    font-size: 22pt;
+    pointer-events: none;
+    text-align: center;
+    list-style-type: none;
+    z-index: -1;
 }
 
 #url {
-  display: none;
+    display: none;
 }
 
 .pdf_thumbnail {
-  border: 1px dotted black;
-  float: left;
-  height: 80px;
-  margin: 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 80px;
-  position: relative;
+    border: 1px dotted black;
+    display: inline-block;
+    margin: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
 }
 
 #loading {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+#upload-button {
+    border: none;
+    border-radius: 4px;
+    background-color: #FF5722;
+    color: white;
+    cursor: pointer;
+    display: block;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 20px auto 0;
+    padding: 20px;
+    width: 30%
+}
+
+#sortable {
+    list-style-type: none;
 }
 
 li i.fa-minus-square, li i.fa-repeat, li i.fa-undo {
-  position: absolute;
-  top: 0;
+    position: absolute;
+    top: 0;
 }
 
 li i.fa-minus-square {
-  right: 0
+    right: 0
 }
 
 li i.fa-repeat {
-  left: 20px;
+    left: 20px;
 }
 
 li i.fa-undo {
-  left: 0;
+    left: 0;
 }

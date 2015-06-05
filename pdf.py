@@ -18,7 +18,8 @@ for logger in ('tornado.access', 'tornado.application',
 
 log = logging.getLogger('pdftool')
 
-log.info('Starting pdftool server')
+log.info('Starting pdftool server on %s:%s' % 
+         (tornado.options.options.host, tornado.options.options.port))
 
 from pdftool import app
 
