@@ -133,17 +133,20 @@ $(document).ready ->
         data: data
         beforeSend: () ->
           $('#url').hide()
+          $('#url').css 'margin-bottom', "-100px"
           $('#loading').show()
         success: (data, textStatus, errors) ->
-          byteCharacters = atob(data)
-          byteNumbers = new Array(byteCharacters.length)
-          for el, i in byteNumbers
-            byteNumbers[i] = byteCharacters.charCodeAt(i)
-          byteArray = new Uint8Array(byteNumbers)
-          blob = new Blob([byteArray], {type: 'application/pdf'})
-          url = window.URL.createObjectURL(blob)
-          $("#url").attr 'href', url
-          $("#url").show()
+          if data
+            byteCharacters = atob(data)
+            byteNumbers = new Array(byteCharacters.length)
+            for el, i in byteNumbers
+              byteNumbers[i] = byteCharacters.charCodeAt(i)
+            byteArray = new Uint8Array(byteNumbers)
+            blob = new Blob([byteArray], {type: 'application/pdf'})
+            url = window.URL.createObjectURL(blob)
+            $("#url").attr 'href', url
+            $('#url').show()
+            $("#url").animate({'margin-bottom': '0'}, 500)
           $('#loading').hide()
   else
     alert('Your browser is outdated. Please consider upgrading to a newer one.')

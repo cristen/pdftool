@@ -16,6 +16,8 @@ class Merge(Route):
         pages = int(len(self.request.arguments) / 3)
         output = PdfFileWriter()
         bodies = {}
+        if not pdfs:
+            return
         for el in pdfs:
             if el.filename not in bodies:
                 bodies[el.filename] = el.body

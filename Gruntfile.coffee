@@ -43,5 +43,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
 
-  grunt.registerTask 'js', ['coffeelint','coffee', 'uglify:pdftool']
+  grunt.registerTask 'default', ['coffeelint', 'coffee', 'uglify:pdftool']
+  grunt.registerTask 'js', ['coffeelint', 'coffee', 'uglify:pdftool']
   grunt.registerTask 'dev', ['coffeelint', 'coffee', 'uglify:pdftool', 'watch']

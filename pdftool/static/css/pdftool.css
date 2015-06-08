@@ -24,10 +24,6 @@ body {
     z-index: -1;
 }
 
-#url {
-    display: none;
-}
-
 .pdf_thumbnail {
     border: 1px dotted black;
     display: inline-block;
@@ -88,10 +84,6 @@ li i.fa-undo {
   width: 0px;
 }
 
-.thumbnail {
-  width: 50px;
-}
-
 #completion {
   position: relative;
 }
@@ -101,4 +93,16 @@ li i.fa-undo {
   position: absolute;
   top: 10px;
   left: 50%;
+}
+
+#url {
+  bottom: 10px;
+  left: 50%;
+  margin-bottom: -100px;
+  position: fixed;
+  width: 70px;
+}
+
+#url img {
+  width: 100%;
 }

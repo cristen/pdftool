@@ -11,9 +11,14 @@
 
 <img id="loading" src="{{ static_url('images/ajax-loader.gif') }}" alt="loading"/>
 
-<a id="url" href="#">Download the result !</a>
+<a id="url" href="#">
+  <img src="{{ static_url('images/download.png') }}" alt="download" />
+</a>
+
 <input type="button" value="Work the magic !"  id="upload-button" data-url="{{ reverse_url('Merge') }}" data-preview-url="{{ reverse_url('Preview') }}"/>
 
-<div id="completion"><div id="progress-label"></div></div>
+<div id="completion">
+  <div id="progress-label"></div>
+</div>
 
 {% end %}

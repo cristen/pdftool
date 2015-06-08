@@ -166,23 +166,29 @@ $(document).ready(function() {
         data: data,
         beforeSend: function() {
           $('#url').hide();
+          $('#url').css('margin-bottom', "-100px");
           return $('#loading').show();
         },
         success: function(data, textStatus, errors) {
           var blob, byteArray, byteCharacters, byteNumbers, url, _k, _len2;
-          byteCharacters = atob(data);
-          byteNumbers = new Array(byteCharacters.length);
-          for (i = _k = 0, _len2 = byteNumbers.length; _k < _len2; i = ++_k) {
-            el = byteNumbers[i];
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          if (data) {
+            byteCharacters = atob(data);
+            byteNumbers = new Array(byteCharacters.length);
+            for (i = _k = 0, _len2 = byteNumbers.length; _k < _len2; i = ++_k) {
+              el = byteNumbers[i];
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            byteArray = new Uint8Array(byteNumbers);
+            blob = new Blob([byteArray], {
+              type: 'application/pdf'
+            });
+            url = window.URL.createObjectURL(blob);
+            $("#url").attr('href', url);
+            $('#url').show();
+            $("#url").animate({
+              'margin-bottom': '0'
+            }, 500);
           }
-          byteArray = new Uint8Array(byteNumbers);
-          blob = new Blob([byteArray], {
-            type: 'application/pdf'
-          });
-          url = window.URL.createObjectURL(blob);
-          $("#url").attr('href', url);
-          $("#url").show();
           return $('#loading').hide();
         }
       });
