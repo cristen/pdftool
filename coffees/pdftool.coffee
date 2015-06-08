@@ -134,7 +134,7 @@ $(document).ready ->
         beforeSend: () ->
           $('#url').hide()
           $('#url').css 'margin-bottom', "-100px"
-          $('#loading').show()
+          $('.loading').show()
         success: (data, textStatus, errors) ->
           if data
             byteCharacters = atob(data)
@@ -147,7 +147,7 @@ $(document).ready ->
             $("#url").attr 'href', url
             $('#url').show()
             $("#url").animate({'margin-bottom': '0'}, 500)
-          $('#loading').hide()
+          $('.loading').hide(1000)
   else
     alert('Your browser is outdated. Please consider upgrading to a newer one.')
 

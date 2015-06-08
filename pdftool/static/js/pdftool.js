@@ -167,7 +167,7 @@ $(document).ready(function() {
         beforeSend: function() {
           $('#url').hide();
           $('#url').css('margin-bottom', "-100px");
-          return $('#loading').show();
+          return $('.loading').show();
         },
         success: function(data, textStatus, errors) {
           var blob, byteArray, byteCharacters, byteNumbers, url, _k, _len2;
@@ -189,7 +189,7 @@ $(document).ready(function() {
               'margin-bottom': '0'
             }, 500);
           }
-          return $('#loading').hide();
+          return $('.loading').hide(1000);
         }
       });
     };
