@@ -27,7 +27,7 @@ $(document).ready(function() {
     };
     handleRemove = function() {
       return $("#sortable").on('click', ".fa-minus-square", function() {
-        if (confirm("Are you sure ?")) {
+        if (confirm("Êtes-vous certain de vouloir supprimer cette page ?")) {
           $(this).parent().remove();
           return updatePagesPosition();
         }

@@ -20,7 +20,7 @@ $(document).ready ->
 
     handleRemove = () ->
       $("#sortable").on 'click', ".fa-minus-square", () ->
-        if confirm("Are you sure ?")
+        if confirm("Êtes-vous certain de vouloir supprimer cette page ?")
           $(@).parent().remove()
           updatePagesPosition()
 

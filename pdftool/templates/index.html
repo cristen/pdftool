@@ -3,10 +3,13 @@
 {% block main %}
 
 <input type="file" name="files" id="hidden-uploader" multiple="multiple"/>
+
 <div id="files">
-  <ul id="sortable">
-    <li id="drop">Drop your files here</li>
-  </ul>
+  <div id="dummy-wrapper">
+    <ul id="sortable">
+      <li id="drop">Drop your files here</li>
+    </ul>
+  </div>
 </div>
 
 <img id="loading" src="{{ static_url('images/ajax-loader.gif') }}" alt="loading"/>
