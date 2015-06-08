@@ -104,6 +104,7 @@ $(document).ready ->
                 '<i class="fa fa-undo"></i>' +
                 '<i class="fa fa-repeat"></i>' +
                 '</li>'
+            $('#completion').fadeOut()
             updatePagesPosition()
         files_array.push(files[index])
 

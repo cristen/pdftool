@@ -130,6 +130,7 @@ $(document).ready(function() {
               url = window.URL.createObjectURL(blob);
               $('#files ul').append(("<li class='pdf_thumbnail' data-filename='" + filename + "' data-pagenum='" + index + "'>") + ("<img src='" + url + "' class='thumbnail'/>") + '<i class="fa fa-minus-square"></i>' + '<i class="fa fa-undo"></i>' + '<i class="fa fa-repeat"></i>' + '</li>');
             }
+            $('#completion').fadeOut();
             return updatePagesPosition();
           }
         });
