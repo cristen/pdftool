@@ -106,8 +106,3 @@ li i.fa-undo {
 #url img {
   width: 100%;
 }
-
-#dummy-wrapper {
-  position: relative;
-  z-index: -1;
-}
